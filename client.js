@@ -4,10 +4,10 @@ class Client {
 		this.socket = socket;
 	}
 
-	bindEvents() {
+	bindEvents(message) {
 		console.log('binding events...');
-		this.eventAggregator.on('data', () => {
-			this.socket.send(JSON.stringify({message: 'test'}))
+		this.eventAggregator.on('data', (message) => {
+			this.socket.send(message)
 		});
 	}
 }

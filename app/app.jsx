@@ -1,6 +1,7 @@
 import ChartWidget from "chart_widget.jsx";
 import jQuery from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
+import './app.css';
 
 window.$ = jQuery
 
@@ -15,23 +16,34 @@ class App {
 		this.$eventAggregator = $("#event-aggregator");
 
 		this.socket = new WebSocket('ws://localhost:3000/connect');
-		console.log(this.socket)
 
 		this.socket.onmessage = this.onUpdate.bind(this);
 	}
 
-	onUpdate() {
-		let uuid = 'abc';
-		this.$appContainer.append('<div id="' + uuid + '"></div>');
-		
-		let pieChartWidget = new ChartWidget(uuid, this);
+	onUpdate(message) {
+		let data = JSON.parse(message.data),
+			payload = JSON.parse(data.payload);
 
-		this.charts[uuid] = pieChartWidget;
-		this.charts[uuid].init();
-		this.charts[uuid].render();
+		switch(data.eventType) {
+			case 'data':
+				for(var key in payload) {
+					if(this.charts[key]) {
+						this.charts[key].updateData(payload[key]);
+					} else {
+						let uuid = key;
+						this.$appContainer.append('<div class="linechart-container" id="' + uuid + '" style="flex-basis: 40%"></div>');
+						
+						let lineChartWidget = new ChartWidget(uuid, this);
+
+						this.charts[uuid] = lineChartWidget;
+						this.charts[uuid].init();
+					}
+				}
+				break;
+			case 'logout':
+				break;
+		}
 	}
-
-
 }
 
 new App().start();

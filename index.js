@@ -15,7 +15,7 @@ const kafkaConsumer = new kafka.HighLevelConsumer(kafkaClient, config.kafkaConfi
 
 kafkaConsumer.on('message', (message) => {
 	//Wire message event to the eventemitter so all clients can access
-	eventAggregator.emit('data', message.value);
+	eventAggregator.emit('data', JSON.stringify({eventType: 'data', payload: message.value}));
 });
 
 app.use(express.static('public'));
@@ -51,10 +51,5 @@ app.listen(3000, '0.0.0.0', (err) => {
 		throw new Error("unable to start server");
 	console.log('Server listening on 3000...');		
 });
-
-
-// setInterval(() => {
-// 	eventAggregator.emit('data');
-// }, 10000);
 
 

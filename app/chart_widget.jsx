@@ -6,53 +6,58 @@ export default class ChartWidget {
 	constructor(uuid, app) {
 		this.uuid = uuid;
 		this.app = app;
+		this.cpuSeries = {
+			data: [],
+			name: 'CPU'
+		}
+		
+		this.memSeries = {
+			data: [],
+			name: 'Memory'
+		}
+
+
 	}
 
 	init() {
-		this.app.$eventAggregator.on('onDataUpdate', this.onDataUpdate.bind(this));
-	}
+		debugger;
+		this.$uuid = $("#" + this.uuid)
+		
+		this.selfDestructTimer = setTimeout(() => {this.$uuid.remove(); delete this.app.charts[this.uuid]}, 10000);
 
-	onDataUpdate() {
-		console.log(this.uuid);
-	}
-
-	render() {
 		this.chart = Highcharts.chart(this.uuid, {
-			'chart': {
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadows: false,
-				type: 'pie'
-			},
 			title: {
-				text: 'test'
+				text: this.uuid
 			},
-			series: [{
-				name: 'Test',
-				colorByPoint: true,
-				data: [{
-					name: 'One',
-					y: 50,
-				}, {
-					name: 'Two',
-					y: 50
-				}]
-			}]
-
+			yAxis: {
+				title: {
+					text: 'Percentage'
+				}
+			},
+			xAxis: {
+				title: {
+					text: 'Time'
+				}
+			},
+			series: [this.cpuSeries, this.memSeries]
 		});
-
-		let data2 = [{
-			name: 'One',
-			y: 90
-		}, {
-			name: 'Two',
-			y: 10
-		}];
 	}
 
-	updateData() {
+	updateData(data) {
+		if(this.cpuSeries.data.length > 20)
+			this.cpuSeries.data = this.cpuSeries.data.splice(1);
+		if(this.memSeries.data.length > 20)
+			this.memSeries.data = this.memSeries.data.splice(1);
 
+		this.cpuSeries.data.push(data['cpu']);
+		this.memSeries.data.push(data['mem']);
+		this.chart.series[0].setData(this.cpuSeries.data);
+		this.chart.series[1].setData(this.memSeries.data);
+
+		//Set new timeout
+		clearTimeout(this.selfDestructTimer);
+		this.selfDestructTimer = setTimeout(() => {this.$uuid.remove(); delete this.app.charts[this.uuid]}, 10000);
 	}
+
 }
-
-
+	
