@@ -8,8 +8,9 @@ let express = require('express'),
 	config = require('./config'),
 	uuid = require('uuid/v4');
 
-const clients = []
 
+//Need to pass zookeeper's connection string
+//kafkaClient will ask zookeeper for broker's address
 const kafkaClient = new kafka.Client(config.kafkaConfig.consumerOptions.connectionString);
 const kafkaConsumer = new kafka.HighLevelConsumer(kafkaClient, config.kafkaConfig.consumerOptions.topics);
 

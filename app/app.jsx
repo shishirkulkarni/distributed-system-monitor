@@ -2,6 +2,7 @@ import ChartWidget from "chart_widget.jsx";
 import jQuery from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
 import './app.css';
+var config = require('../config');
 
 window.$ = jQuery
 
@@ -15,7 +16,7 @@ class App {
 		// create a ws connection to the server
 		this.$eventAggregator = $("#event-aggregator");
 
-		this.socket = new WebSocket('ws://localhost:3000/connect');
+		this.socket = new WebSocket('ws://' + config.server + ':3000/connect');
 
 		this.socket.onmessage = this.onUpdate.bind(this);
 	}

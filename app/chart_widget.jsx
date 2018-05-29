@@ -20,7 +20,7 @@ export default class ChartWidget {
 	}
 
 	init() {
-		debugger;
+		// debugger;
 		this.$uuid = $("#" + this.uuid)
 		
 		this.selfDestructTimer = setTimeout(() => {this.$uuid.remove(); delete this.app.charts[this.uuid]}, 10000);
