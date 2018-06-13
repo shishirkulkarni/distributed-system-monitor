@@ -1,0 +1,27 @@
+{
+  "apps" : [
+{
+    "name"    : "zk",
+    "script"  : "/opt/kafka_2.11-1.0.1/bin/zookeeper-server-start.sh",
+    "args"    : "/opt/kafka_2.11-1.0.1/config/zookeeper.properties"
+},
+{
+	 "name"    : "kafka",
+	 "script"  : "/opt/kafka_2.11-1.0.1/bin/kafka-server-start.sh",
+	 "args"	   : "/opt/kafka_2.11-1.0.1/config/server.properties"
+},
+{
+	 "name"    : "spark",
+         "interpreter" :  "bash",
+	 "script"  : "/opt/spark-2.3.0-bin-hadoop2.7/bin/spark-submit",
+	 "args"	   : "--jars /home/ujjawal_1224/CS185C-Project/spark-streaming-kafka-0-8-assembly_2.11-2.3.0.jar /home/ujjawal_1224/CS185C-Project/spark_stream.py localhost:9092 input output 5"
+},
+{
+         "name"    : "dashboard",
+         "script"  : "npm",
+ 	 "cwd"	   : "./CS185C-Project",
+         "args"    : "run start"
+}
+]
+}
+

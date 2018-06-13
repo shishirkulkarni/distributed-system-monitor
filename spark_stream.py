@@ -16,7 +16,12 @@ frequency = int(sys.argv[4])
 
 kafkaProducer = KafkaProducer(bootstrap_servers = bootstrap_servers)
 
+# conf = SparkConf()
+# conf.set("spark.jars", "/path-to-jar/spark-streaming-kafka-0-8-assembly_2.11-2.2.1.jar")
+# sc = SparkContext(conf=conf)
+
 sc = SparkContext(appName="logAggregator")
+
 
 ssc = StreamingContext(sc, frequency)
 

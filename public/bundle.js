@@ -113,7 +113,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\nconst server = \"192.168.43.163\",\n\tzookeeperPort = 2181,\n\tbrokerPort = 9092,\n\tnodeTopic = \"input\",\n\tconsumerTopic = \"output\";\n\nmodule.exports = {\n\t\"server\": server,\n\t\"kafkaConfig\": {\n\t\t\"nodeOptions\": {\n\t\t\t\"bootstrap_servers\": server + \":\" + brokerPort,\n\t\t\t\"topic\": nodeTopic\n\t\t},\n\t\t\"consumerOptions\": {\n\t\t\t\"connectionString\": server + \":\" + zookeeperPort,\n\t\t\t\"topics\": [{\n\t\t\t\t\"topic\": consumerTopic\n\t\t\t}]\n\t\t}\n\t}\n}\n\n\n//# sourceURL=webpack:///./config.js?");
+eval("\nconst server = \"35.230.65.192\",\n\tzookeeperPort = 2181,\n\tbrokerPort = 9092,\n\tnodeTopic = \"input\",\n\tconsumerTopic = \"output\";\n\nmodule.exports = {\n\t\"server\": server,\n\t\"kafkaConfig\": {\n\t\t\"nodeOptions\": {\n\t\t\t\"bootstrap_servers\": server + \":\" + brokerPort,\n\t\t\t\"topic\": nodeTopic\n\t\t},\n\t\t\"consumerOptions\": {\n\t\t\t\"connectionString\": server + \":\" + zookeeperPort,\n\t\t\t\"topics\": [{\n\t\t\t\t\"topic\": consumerTopic\n\t\t\t}]\n\t\t}\n\t}\n}\n\n\n//# sourceURL=webpack:///./config.js?");
 
 /***/ }),
 
